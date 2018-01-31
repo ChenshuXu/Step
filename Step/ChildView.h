@@ -5,10 +5,11 @@
 
 #pragma once
 
+#include "graphics/OpenGLWnd.h"
 
 // CChildView window
 
-class CChildView : public CWnd
+class CChildView : public COpenGLWnd
 {
 // Construction
 public:
