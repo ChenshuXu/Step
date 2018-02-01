@@ -39,6 +39,12 @@
     <ClInclude Include="graphics\OpenGLWnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LineDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Step.cpp">
@@ -54,6 +60,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\OpenGLWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StarDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
