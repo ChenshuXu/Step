@@ -8,7 +8,6 @@
 #include "graphics/OpenGLWnd.h"
 
 using namespace std;
-using namespace Gdiplus;
 
 // CChildView window
 
@@ -39,7 +38,12 @@ public:
 	void OnGLDraw(CDC* pDC);
 	afx_msg void OnFileSavebmpfile();
 
+
+public:
+	enum States { Tutorial, Assignment };
 private:
+	States mState;
+
 	double m_linefmx;
 	double m_linefmy;
 	double m_linetox;

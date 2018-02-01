@@ -20,6 +20,8 @@
 
 CChildView::CChildView()
 {
+	mState = Assignment;
+
 	m_linefmx = 0.5;
 	m_linefmy = 0.5;
 	m_linetox = 0.2;
@@ -84,152 +86,152 @@ void CChildView::OnGLDraw(CDC* pDC)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	
-	glColor3d(1., 0., 0.);
+	if (mState == Tutorial) {
+		glColor3d(1., 0., 0.);
 
-	/*
-	glBegin(GL_POLYGON);
-	glVertex2d(0.25, 0.25);
-	glVertex2d(0.75, 0.25);
-	glVertex2d(0.75, 0.75);
-	glVertex2d(0.25, 0.75);
-	glEnd();
-	*/
-	glBegin(GL_LINES);
-	glVertex2d(0.1, 0.1);
-	glVertex2d(0.8, 0.22);
-	glVertex2d(0.78, 0.9);
-	glVertex2d(0.2, 0.9);
-	glEnd();
 
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glColor3d(0., 0., 1.);
+		glBegin(GL_POLYGON);
+		glVertex2d(0.25, 0.25);
+		glVertex2d(0.75, 0.25);
+		glVertex2d(0.75, 0.75);
+		glVertex2d(0.25, 0.75);
+		glEnd();
 
-	glBegin(GL_LINES);
-	glVertex2d(m_linefmx, m_linefmy);
-	glVertex2d(m_linetox, m_linetoy);
-	glEnd();
-	
+		glBegin(GL_LINES);
+		glVertex2d(0.1, 0.1);
+		glVertex2d(0.8, 0.22);
+		glVertex2d(0.78, 0.9);
+		glVertex2d(0.2, 0.9);
+		glEnd();
 
-	// calculate the points
-	long double internal_angle = 2 * M_PI / 7;
-	long double rect_internal_angle = M_PI / 2;
-	long double oa = (mLength / 2) / sin(77.143 / 180 * M_PI);
-	long double rad_angle = mAngle * M_PI / 180;
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glColor3d(0., 0., 1.);
 
-	// Heptagram
-	mAx = sin(rad_angle) * oa;
-	mAy = cos(rad_angle) * oa;
+		glBegin(GL_LINES);
+		glVertex2d(m_linefmx, m_linefmy);
+		glVertex2d(m_linetox, m_linetoy);
+		glEnd();
+	}
+	else if (mState == Assignment) {
+		// calculate the points
+		long double internal_angle = 2 * M_PI / 7;
+		long double rect_internal_angle = M_PI / 2;
+		long double oa = (mLength / 2) / sin(77.143 / 180 * M_PI);
+		long double rad_angle = mAngle * M_PI / 180;
 
-	mBx = sin(internal_angle + rad_angle) * oa;
-	mBy = cos(internal_angle + rad_angle) * oa;
+		// Heptagram
+		mAx = sin(rad_angle) * oa;
+		mAy = cos(rad_angle) * oa;
 
-	mCx = sin(internal_angle * 2 + rad_angle) * oa;
-	mCy = cos(internal_angle * 2 + rad_angle) * oa;
+		mBx = sin(internal_angle + rad_angle) * oa;
+		mBy = cos(internal_angle + rad_angle) * oa;
 
-	mDx = sin(internal_angle * 3 + rad_angle) * oa;
-	mDy = cos(internal_angle * 3 + rad_angle) * oa;
+		mCx = sin(internal_angle * 2 + rad_angle) * oa;
+		mCy = cos(internal_angle * 2 + rad_angle) * oa;
 
-	mEx = sin(internal_angle * 4 + rad_angle) * oa;
-	mEy = cos(internal_angle * 4 + rad_angle) * oa;
+		mDx = sin(internal_angle * 3 + rad_angle) * oa;
+		mDy = cos(internal_angle * 3 + rad_angle) * oa;
 
-	mFx = sin(internal_angle * 5 + rad_angle) * oa;
-	mFy = cos(internal_angle * 5 + rad_angle) * oa;
+		mEx = sin(internal_angle * 4 + rad_angle) * oa;
+		mEy = cos(internal_angle * 4 + rad_angle) * oa;
 
-	mGx = sin(internal_angle * 6 + rad_angle) * oa;
-	mGy = cos(internal_angle * 6 + rad_angle) * oa;
+		mFx = sin(internal_angle * 5 + rad_angle) * oa;
+		mFy = cos(internal_angle * 5 + rad_angle) * oa;
 
-	// Rectangular
-	long double oh = sqrt((mLength/2)*(mLength/2) + oa * oa);
-	double mHx1 = (mLength / 2);
-	double mHy1 = oa;
-	mHx = mHx1 * cos(-rad_angle) - sin(-rad_angle) * mHy1;
-	mHy = mHx1 * sin(-rad_angle) + cos(-rad_angle) * mHy1;
+		mGx = sin(internal_angle * 6 + rad_angle) * oa;
+		mGy = cos(internal_angle * 6 + rad_angle) * oa;
 
-	double mIx1 = (mLength / 2);
-	double mIy1 = -oa * cos(internal_angle / 2);
-	mIx = cos(-rad_angle) * mIx1 - sin(-rad_angle) * mIy1;
-	mIy = sin(-rad_angle) * mIx1 + cos(-rad_angle) * mIy1;
+		// Rectangular
+		long double oh = sqrt((mLength / 2)*(mLength / 2) + oa * oa);
+		double mHx1 = (mLength / 2);
+		double mHy1 = oa;
+		mHx = mHx1 * cos(-rad_angle) - sin(-rad_angle) * mHy1;
+		mHy = mHx1 * sin(-rad_angle) + cos(-rad_angle) * mHy1;
 
-	double mJx1 = -(mLength / 2);
-	double mJy1 = -oa * cos(internal_angle / 2);
-	mJx = cos(-rad_angle) * mJx1 - sin(-rad_angle) * mJy1;
-	mJy = sin(-rad_angle) * mJx1 + cos(-rad_angle) * mJy1;
+		double mIx1 = (mLength / 2);
+		double mIy1 = -oa * cos(internal_angle / 2);
+		mIx = cos(-rad_angle) * mIx1 - sin(-rad_angle) * mIy1;
+		mIy = sin(-rad_angle) * mIx1 + cos(-rad_angle) * mIy1;
 
-	double mKx1 = -(mLength / 2);
-	double mKy1 = oa;
-	mKx = mKx1 * cos(-rad_angle) - sin(-rad_angle) * mKy1;
-	mKy = mKx1 * sin(-rad_angle) + cos(-rad_angle) * mKy1;
+		double mJx1 = -(mLength / 2);
+		double mJy1 = -oa * cos(internal_angle / 2);
+		mJx = cos(-rad_angle) * mJx1 - sin(-rad_angle) * mJy1;
+		mJy = sin(-rad_angle) * mJx1 + cos(-rad_angle) * mJy1;
 
-	
-	mAx = mAx + 0.5 + mX;
-	mAy = mAy + 0.5 + mY;
-	mBx = mBx + 0.5 + mX;
-	mBy = mBy + 0.5 + mY;
-	mCx = mCx + 0.5 + mX;
-	mCy = mCy + 0.5 + mY;
-	mDx = mDx + 0.5 + mX;
-	mDy = mDy + 0.5 + mY;
-	mEx = mEx + 0.5 + mX;
-	mEy = mEy + 0.5 + mY;
-	mFx = mFx + 0.5 + mX;
-	mFy = mFy + 0.5 + mY;
-	mGx = mGx + 0.5 + mX;
-	mGy = mGy + 0.5 + mY;
-	mHx = mHx + 0.5 + mX;
-	mHy = mHy + 0.5 + mY;
-	mIx = mIx + 0.5 + mX;
-	mIy = mIy + 0.5 + mY;
-	mJx = mJx + 0.5 + mX;
-	mJy = mJy + 0.5 + mY;
-	mKx = mKx + 0.5 + mX;
-	mKy = mKy + 0.5 + mY;
-	
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glColor3d(0., 1., 0.);
+		double mKx1 = -(mLength / 2);
+		double mKy1 = oa;
+		mKx = mKx1 * cos(-rad_angle) - sin(-rad_angle) * mKy1;
+		mKy = mKx1 * sin(-rad_angle) + cos(-rad_angle) * mKy1;
 
-	glBegin(GL_LINES);
-	// line AD
-	glVertex2d(mAx, mAy);
-	glVertex2d(mDx, mDy);
-	// Line AE
-	glVertex2d(mAx, mAy);
-	glVertex2d(mEx, mEy);
-	// Line BF
-	glVertex2d(mBx, mBy);
-	glVertex2d(mFx, mFy);
-	// Line BE
-	glVertex2d(mBx, mBy);
-	glVertex2d(mEx, mEy);
-	// Line CG
-	glVertex2d(mCx, mCy);
-	glVertex2d(mGx, mGy);
-	// Line CF
-	glVertex2d(mCx, mCy);
-	glVertex2d(mFx, mFy);
-	// Line DG
-	glVertex2d(mDx, mDy);
-	glVertex2d(mGx, mGy);
-	glEnd();
 
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glColor3d(1., 0., 0.);
+		mAx = mAx + 0.5 + mX;
+		mAy = mAy + 0.5 + mY;
+		mBx = mBx + 0.5 + mX;
+		mBy = mBy + 0.5 + mY;
+		mCx = mCx + 0.5 + mX;
+		mCy = mCy + 0.5 + mY;
+		mDx = mDx + 0.5 + mX;
+		mDy = mDy + 0.5 + mY;
+		mEx = mEx + 0.5 + mX;
+		mEy = mEy + 0.5 + mY;
+		mFx = mFx + 0.5 + mX;
+		mFy = mFy + 0.5 + mY;
+		mGx = mGx + 0.5 + mX;
+		mGy = mGy + 0.5 + mY;
+		mHx = mHx + 0.5 + mX;
+		mHy = mHy + 0.5 + mY;
+		mIx = mIx + 0.5 + mX;
+		mIy = mIy + 0.5 + mY;
+		mJx = mJx + 0.5 + mX;
+		mJy = mJy + 0.5 + mY;
+		mKx = mKx + 0.5 + mX;
+		mKy = mKy + 0.5 + mY;
 
-	glBegin(GL_LINES);
-	// Line HI
-	glVertex2d(mHx, mHy);
-	glVertex2d(mIx, mIy);
-	// Line IJ
-	glVertex2d(mIx, mIy);
-	glVertex2d(mJx, mJy);
-	// Line JK
-	glVertex2d(mJx, mJy);
-	glVertex2d(mKx, mKy);
-	// Line KH
-	glVertex2d(mKx, mKy);
-	glVertex2d(mHx, mHy);
-	glEnd();
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glColor3d(0., 1., 0.);
 
+		glBegin(GL_LINES);
+		// line AD
+		glVertex2d(mAx, mAy);
+		glVertex2d(mDx, mDy);
+		// Line AE
+		glVertex2d(mAx, mAy);
+		glVertex2d(mEx, mEy);
+		// Line BF
+		glVertex2d(mBx, mBy);
+		glVertex2d(mFx, mFy);
+		// Line BE
+		glVertex2d(mBx, mBy);
+		glVertex2d(mEx, mEy);
+		// Line CG
+		glVertex2d(mCx, mCy);
+		glVertex2d(mGx, mGy);
+		// Line CF
+		glVertex2d(mCx, mCy);
+		glVertex2d(mFx, mFy);
+		// Line DG
+		glVertex2d(mDx, mDy);
+		glVertex2d(mGx, mGy);
+		glEnd();
+
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glColor3d(1., 0., 0.);
+
+		glBegin(GL_LINES);
+		// Line HI
+		glVertex2d(mHx, mHy);
+		glVertex2d(mIx, mIy);
+		// Line IJ
+		glVertex2d(mIx, mIy);
+		glVertex2d(mJx, mJy);
+		// Line JK
+		glVertex2d(mJx, mJy);
+		glVertex2d(mKx, mKy);
+		// Line KH
+		glVertex2d(mKx, mKy);
+		glVertex2d(mHx, mHy);
+		glEnd();
+	}
 }
 
 
@@ -242,7 +244,8 @@ void CChildView::OnFileSavebmpfile()
 
 void CChildView::OnStepstuffLineendto0()
 {
-	// TODO: Add your command handler code here
+	mState = Tutorial;
+
 	m_linetox = 0.1;
 	m_linetoy = 0.1;
 
@@ -252,7 +255,8 @@ void CChildView::OnStepstuffLineendto0()
 
 void CChildView::OnStepstuffLinedialog()
 {
-	// TODO: Add your command handler code here
+	mState = Tutorial;
+
 	CLineDlg dlg;
 
 	dlg.m_fmx = m_linefmx;
@@ -274,7 +278,8 @@ void CChildView::OnStepstuffLinedialog()
 
 void CChildView::OnStepstuffSevenpointstardialog()
 {
-	// TODO: Add your command handler code here
+	mState = Assignment;
+
 	CStarDlg dlg;
 
 	dlg.m_x = mX;
@@ -296,7 +301,8 @@ void CChildView::OnStepstuffSevenpointstardialog()
 
 void CChildView::OnStepstuffRotate15degrees()
 {
-	// TODO: Add your command handler code here
+	mState = Assignment;
+
 	mAngle += 15;
 
 	Invalidate();
